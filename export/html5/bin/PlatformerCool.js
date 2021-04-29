@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "928";
+	app.meta.h["build"] = "6";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "PlatformerCool";
 	app.meta.h["name"] = "PlatformerCool";
@@ -8390,14 +8390,11 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 	,__class__: PlayState
 });
 var Player = function(psBullets) {
-	this.gravity = 1200;
-	this.jump2Force = 800;
-	this.jumpForce = 500;
 	flixel_FlxSprite.call(this,500,100);
 	this.makeGraphic(16,16,-65536);
-	this.maxVelocity.set(300,1000);
-	this.acceleration.set_y(this.gravity);
-	this.drag.set_x(this.maxVelocity.x * 24);
+	this.maxVelocity.set(400,1000);
+	this.acceleration.set_y(Player.GRAVITY);
+	this.drag.set_x(Player.DRAG_X);
 	this.bullets = psBullets;
 	this.right = new flixel_input_actions_FlxActionDigital().addKey(39,1).addGamepad(14,1);
 	this.left = new flixel_input_actions_FlxActionDigital().addKey(37,1).addGamepad(13,1);
@@ -8416,6 +8413,8 @@ var Player = function(psBullets) {
 	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this,"wallSlideRight"));
 	var _this = flixel_FlxG.watch;
 	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this.acceleration,"x"));
+	var _this = flixel_FlxG.watch;
+	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this.drag,"x"));
 };
 $hxClasses["Player"] = Player;
 Player.__name__ = "Player";
@@ -8431,14 +8430,17 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 	,mobileUIRight: null
 	,mobileUIAction1: null
 	,mobileUIAction2: null
-	,jumpForce: null
-	,jump2Force: null
-	,gravity: null
 	,grounded: null
 	,wallSlideLeft: null
 	,wallSlideRight: null
 	,bullets: null
 	,update: function(elapsed) {
+		this.acceleration.set_x(0);
+		if(this.grounded) {
+			this.drag.set_x(Player.DRAG_X);
+		} else {
+			this.drag.set_x(500);
+		}
 		this.updateInput();
 		this.grounded = (this.touching & 4096) > 0;
 		this.wallSlideLeft = (this.touching & 1) > 0 && !this.grounded;
@@ -8447,7 +8449,7 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 			this.acceleration.set_y(100);
 			this.maxVelocity.set_y(150);
 		} else {
-			this.acceleration.set_y(this.gravity);
+			this.acceleration.set_y(Player.GRAVITY);
 			this.maxVelocity.set_y(1000);
 		}
 		flixel_FlxSprite.prototype.update.call(this,elapsed);
@@ -8495,36 +8497,34 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		if(this.jump2.triggered || action2M) {
 			this.doJump2();
 		}
+		if(!this.left.triggered && !this.right.triggered && !leftM && !rightM) {
+			if(this.wallSlideLeft) {
+				this.moveLeft();
+			}
+			if(this.wallSlideRight) {
+				this.moveRight();
+			}
+		}
 	}
 	,moveLeft: function() {
-		if(this.acceleration.x < this.maxVelocity.x) {
-			this.acceleration.set_x(this.maxVelocity.x);
-		} else {
-			var _g = this.acceleration;
-			_g.set_x(_g.x - this.drag.x);
-		}
+		this.acceleration.set_x(-Player.MOVE_SPEED);
 	}
 	,moveRight: function() {
-		if(this.acceleration.x > this.maxVelocity.x) {
-			this.acceleration.set_x(this.maxVelocity.x);
-		} else {
-			var _g = this.acceleration;
-			_g.set_x(_g.x + this.drag.x);
-		}
+		this.acceleration.set_x(Player.MOVE_SPEED);
 	}
 	,doJump: function() {
 		if(this.grounded) {
-			this.velocity.set_y(-this.jumpForce);
+			this.velocity.set_y(-Player.JUMP_FORCE);
 		} else if(this.wallSlideLeft) {
-			this.velocity.set_y(-300);
-			this.velocity.set_x(300);
+			this.velocity.set_y(-Player.WALL_JUMP_FORCE_Y);
+			this.velocity.set_x(Player.WALL_JUMP_FORCE_X);
 		} else if(this.wallSlideRight) {
-			this.velocity.set_y(-300);
-			this.velocity.set_x(-300);
+			this.velocity.set_y(-Player.WALL_JUMP_FORCE_Y);
+			this.velocity.set_x(-Player.WALL_JUMP_FORCE_X);
 		}
 	}
 	,doJump2: function() {
-		this.velocity.set_y(-this.jump2Force);
+		this.velocity.set_y(-Player.JUMP_2_FORCE);
 	}
 	,doShoot: function() {
 		this.bullets.recycle(null,function() {
@@ -80564,7 +80564,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 995345;
+	this.version = 778614;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -120338,6 +120338,13 @@ flixel_FlxObject._secondSeparateFlxRect = (function($this) {
 }(this));
 openfl_text_Font.__fontByName = new haxe_ds_StringMap();
 openfl_text_Font.__registeredFonts = [];
+Player.JUMP_FORCE = 500;
+Player.JUMP_2_FORCE = 800;
+Player.WALL_JUMP_FORCE_X = 400;
+Player.WALL_JUMP_FORCE_Y = 300;
+Player.GRAVITY = 1200;
+Player.MOVE_SPEED = 1500;
+Player.DRAG_X = 2000;
 flixel_system_FlxVersion.sha = "";
 openfl__$Vector_FloatVector.__meta__ = { obj : { SuppressWarnings : ["checkstyle:FieldDocComment"]}, fields : { toJSON : { SuppressWarnings : ["checkstyle:Dynamic"]}, _ : { SuppressWarnings : ["checkstyle:Dynamic"]}}};
 flixel_math_FlxPoint._pool = new flixel_util_FlxPool_$flixel_$math_$FlxPoint(flixel_math_FlxPoint);

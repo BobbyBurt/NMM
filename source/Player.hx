@@ -1,19 +1,19 @@
 package;
 
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.actions.FlxActionManager;
-import flixel.input.actions.FlxAction.FlxActionDigital;
-import flixel.util.FlxColor;
-import flixel.math.FlxPoint;
-import flixel.FlxSprite;
-import flixel.util.FlxPath;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.actions.FlxAction.FlxActionDigital;
+import flixel.input.actions.FlxActionManager;
+import flixel.math.FlxPoint;
+import flixel.util.FlxColor;
+import flixel.util.FlxPath;
 
 class Player extends FlxSprite
 {
 	static var actions:FlxActionManager;
-	
+
 	var right:FlxActionDigital;
 	var left:FlxActionDigital;
 	var jump:FlxActionDigital;
@@ -25,31 +25,36 @@ class Player extends FlxSprite
 	var mobileUIAction1:FlxSprite;
 	var mobileUIAction2:FlxSprite;
 
-	var jumpForce:Int = 500;
-	var jump2Force:Int = 800;
-	var gravity:Int = 1200;
-
 	var grounded:Bool;
 	var wallSlideLeft:Bool;
 	var wallSlideRight:Bool;
 
 	var bullets:FlxTypedGroup<Bullet>;
 
+	static var JUMP_FORCE:Int = 500;
+	static var JUMP_2_FORCE:Int = 800;
+	static var WALL_JUMP_FORCE_X:Int = 400;
+	static var WALL_JUMP_FORCE_Y:Int = 300;
+	static var GRAVITY:Int = 1200;
+
+	static var MOVE_SPEED:Int = 1500;
+	static var DRAG_X:Int = 2000;
+
 	public function new(psBullets:FlxTypedGroup<Bullet>)
 	{
 		super(500, 100);
 
 		makeGraphic(16, 16, FlxColor.RED);
-		maxVelocity.set(300, 1000);			// max move speed, fall speed
-		acceleration.y = gravity;
-		drag.x = maxVelocity.x * 24;
+		maxVelocity.set(400, 1000); // max move speed, fall speed
+		acceleration.y = GRAVITY;
+		drag.x = DRAG_X;
 
 		bullets = psBullets;
 
 		// INPUT SETUP
 		right = new FlxActionDigital().addKey(RIGHT, PRESSED).addGamepad(DPAD_RIGHT, PRESSED);
 		left = new FlxActionDigital().addKey(LEFT, PRESSED).addGamepad(DPAD_LEFT, PRESSED);
-		jump = new FlxActionDigital().addKey(C, JUST_PRESSED) .addGamepad(B, JUST_PRESSED);
+		jump = new FlxActionDigital().addKey(C, JUST_PRESSED).addGamepad(B, JUST_PRESSED);
 		shoot = new FlxActionDigital().addKey(Z, JUST_PRESSED).addGamepad(RIGHT_TRIGGER, JUST_PRESSED);
 		jump2 = new FlxActionDigital().addKey(X, JUST_PRESSED).addGamepad(A, JUST_PRESSED);
 
@@ -61,31 +66,30 @@ class Player extends FlxSprite
 		FlxG.watch.add(this, "wallSlideLeft");
 		FlxG.watch.add(this, "wallSlideRight");
 		FlxG.watch.add(acceleration, "x");
+		FlxG.watch.add(drag, "x");
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		/*
+		acceleration.x = 0;
+
 		if (grounded)
 		{
-			acceleration.x -= 100;
-			// drag.x = maxVelocity.x * 24;
+			drag.x = DRAG_X;
 		}
 		else
 		{
-			acceleration.x -= 100;
-			// drag.x = maxVelocity.x * 10;
+			drag.x = 500;
 		}
-		*/
 		// FIXME this doesnt need to update each frame, should happen once at grounded change
-		
+
 		updateInput();
-		
+
 		grounded = isTouching(FlxObject.DOWN);
 		wallSlideLeft = (isTouching(FlxObject.LEFT) && !grounded);
 		wallSlideRight = (isTouching(FlxObject.RIGHT) && !grounded);
-		// possible edge case: both being true? they should be mutually exclusive
-		
+		// EDGECASE: both being true? they should be mutually exclusive
+
 		if ((wallSlideLeft || wallSlideRight) && velocity.y > 0)
 		{
 			acceleration.y = 100;
@@ -93,7 +97,7 @@ class Player extends FlxSprite
 		}
 		else
 		{
-			acceleration.y = gravity;
+			acceleration.y = GRAVITY;
 			maxVelocity.y = 1000;
 		}
 
@@ -106,7 +110,7 @@ class Player extends FlxSprite
 		var rightM:Bool = false;
 		var action1M:Bool = false;
 		var action2M:Bool = false;
-		
+
 		if (Reg.mobile)
 		{
 			for (touch in FlxG.touches.list)
@@ -124,7 +128,7 @@ class Player extends FlxSprite
 				}
 			}
 		}
-		
+
 		if (left.triggered || leftM)
 			moveLeft();
 		if (right.triggered || rightM)
@@ -136,52 +140,45 @@ class Player extends FlxSprite
 		if (jump2.triggered || action2M)
 			doJump2();
 
-		/*
-		if (!left.triggered && !right.triggered && !leftM && ! rightM)
+		// wall magnet
+		if (!left.triggered && !right.triggered && !leftM && !rightM)
 		{
 			if (wallSlideLeft)
 				moveLeft();
 			if (wallSlideRight)
 				moveRight();
 		}
-		*/
 	}
 
 	function moveLeft():Void
 	{
-		if (acceleration.x < maxVelocity.x)
-			acceleration.x = maxVelocity.x
-		else	
-			acceleration.x -= drag.x;
+		acceleration.x = -MOVE_SPEED;
 	}
 
 	function moveRight():Void
 	{
-		if (acceleration.x > maxVelocity.x)
-			acceleration.x = maxVelocity.x
-		else
-			acceleration.x += drag.x;
+		acceleration.x = MOVE_SPEED;
 	}
 
 	function doJump():Void
 	{
 		if (grounded)
-			velocity.y = - jumpForce;
+			velocity.y = -JUMP_FORCE;
 		else if (wallSlideLeft)
 		{
-			velocity.y = - 300;
-			velocity.x = 300;
+			velocity.y = -WALL_JUMP_FORCE_Y;
+			velocity.x = WALL_JUMP_FORCE_X;
 		}
 		else if (wallSlideRight)
 		{
-			velocity.y = - 300;
-			velocity.x = -300;
+			velocity.y = -WALL_JUMP_FORCE_Y;
+			velocity.x = -WALL_JUMP_FORCE_X;
 		}
 	}
 
 	function doJump2():Void
 	{
-		velocity.y = -jump2Force;
+		velocity.y = -JUMP_2_FORCE;
 	}
 
 	function doShoot()
