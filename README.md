@@ -1,3 +1,4 @@
 # N--
 
-My first platformer in HaxeFlixel. Who knows what it'll end up being?
+Haxeflixel platformer
+Also my first time using github, so implimentation might be weird.
