@@ -152,21 +152,11 @@ class Player extends FlxSprite
 
 	function moveLeft():Void
 	{
-		// if (acceleration.x < maxVelocity.x)
-		// 	acceleration.x = maxVelocity.x
-		// else
-		// 	acceleration.x -= drag.x;
-
 		acceleration.x = -MOVE_SPEED;
 	}
 
 	function moveRight():Void
 	{
-		// if (acceleration.x > maxVelocity.x)
-		// 	acceleration.x = maxVelocity.x
-		// else
-		// 	acceleration.x += drag.x;
-
 		acceleration.x = MOVE_SPEED;
 	}
 
