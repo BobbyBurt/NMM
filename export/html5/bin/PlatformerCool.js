@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "6";
+	app.meta.h["build"] = "10";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "PlatformerCool";
 	app.meta.h["name"] = "PlatformerCool";
@@ -959,7 +959,6 @@ ApplicationMain.start = function(stage) {
 			stage.dispatchEvent(new openfl_events_FullScreenEvent("fullScreen",false,false,true,true));
 		}
 	} catch( _g ) {
-		haxe_NativeStackTrace.lastError = _g;
 		var e = haxe_Exception.caught(_g).unwrap();
 		stage.__handleError(e);
 	}
@@ -22654,7 +22653,7 @@ openfl_display_Shader.prototype = {
 				shaderBuffer.paramDataBuffer = gl.createBuffer();
 			}
 			this.__context.__bindGLArrayBuffer(shaderBuffer.paramDataBuffer);
-			lime_graphics_WebGLRenderContext.bufferData(gl,gl.ARRAY_BUFFER,shaderBuffer.paramData,gl.DYNAMIC_DRAW);
+			lime_graphics_WebGLRenderContext.bufferData(gl,gl.ARRAY_BUFFER,lime_utils_Float32Array.toArrayBufferView(shaderBuffer.paramData),gl.DYNAMIC_DRAW);
 		} else {
 			this.__context.__bindGLArrayBuffer(null);
 		}
@@ -74141,43 +74140,48 @@ lime_graphics_WebGL2RenderContext.toWebGLRenderContext = function(gl) {
 };
 var lime_graphics_WebGLRenderContext = {};
 lime_graphics_WebGLRenderContext.bufferData = function(this1,target,srcData,usage) {
+	var srcData1 = srcData;
 	var srcOffset = null;
 	if(srcOffset != null) {
-		this1.bufferData(target,srcData,usage,srcOffset,null);
+		this1.bufferData(target,srcData1,usage,srcOffset,null);
 	} else {
-		this1.bufferData(target,srcData,usage);
+		this1.bufferData(target,srcData1,usage);
 	}
 };
 lime_graphics_WebGLRenderContext.bufferSubData = function(this1,target,offset,srcData) {
+	var srcData1 = srcData;
 	var srcOffset = null;
 	if(srcOffset != null) {
-		this1.bufferSubData(target,offset,srcData,srcOffset,null);
+		this1.bufferSubData(target,offset,srcData1,srcOffset,null);
 	} else {
-		this1.bufferSubData(target,offset,srcData);
+		this1.bufferSubData(target,offset,srcData1);
 	}
 };
 lime_graphics_WebGLRenderContext.compressedTexImage2D = function(this1,target,level,internalformat,width,height,border,srcData) {
+	var srcData1 = srcData;
 	var srcOffset = null;
 	if(srcOffset != null) {
-		this1.compressedTexImage2D(target,level,internalformat,width,height,border,srcData,srcOffset,null);
+		this1.compressedTexImage2D(target,level,internalformat,width,height,border,srcData1,srcOffset,null);
 	} else {
-		this1.compressedTexImage2D(target,level,internalformat,width,height,border,srcData);
+		this1.compressedTexImage2D(target,level,internalformat,width,height,border,srcData1);
 	}
 };
 lime_graphics_WebGLRenderContext.compressedTexSubImage2D = function(this1,target,level,xoffset,yoffset,width,height,format,srcData) {
+	var srcData1 = srcData;
 	var srcOffset = null;
 	if(srcOffset != null) {
-		this1.compressedTexSubImage2D(target,level,xoffset,yoffset,width,height,format,srcData,srcOffset,null);
+		this1.compressedTexSubImage2D(target,level,xoffset,yoffset,width,height,format,srcData1,srcOffset,null);
 	} else {
-		this1.compressedTexSubImage2D(target,level,xoffset,yoffset,width,height,format,srcData);
+		this1.compressedTexSubImage2D(target,level,xoffset,yoffset,width,height,format,srcData1);
 	}
 };
 lime_graphics_WebGLRenderContext.readPixels = function(this1,x,y,width,height,format,type,pixels) {
+	var pixels1 = pixels;
 	var dstOffset = null;
 	if(dstOffset != null) {
-		this1.readPixels(x,y,width,height,format,type,pixels,dstOffset);
+		this1.readPixels(x,y,width,height,format,type,pixels1,dstOffset);
 	} else {
-		this1.readPixels(x,y,width,height,format,type,pixels);
+		this1.readPixels(x,y,width,height,format,type,pixels1);
 	}
 };
 lime_graphics_WebGLRenderContext.texImage2D = function(this1,target,level,internalformat,width,height,border,format,type,srcData) {
@@ -77276,7 +77280,7 @@ lime_media_AudioBuffer.fromBase64 = function(base64String) {
 		base64String = "data:" + lime_media_AudioBuffer.__getCodec(lime__$internal_format_Base64.decode(base64String)) + ";base64," + base64String;
 	}
 	var audioBuffer = new lime_media_AudioBuffer();
-	audioBuffer.set_src(new Howl({ src : [base64String], html5 : true, preload : false}));
+	audioBuffer.set_src(new lime_media_howlerjs_Howl({ src : [base64String], html5 : true, preload : false}));
 	return audioBuffer;
 };
 lime_media_AudioBuffer.fromBytes = function(bytes) {
@@ -77284,7 +77288,7 @@ lime_media_AudioBuffer.fromBytes = function(bytes) {
 		return null;
 	}
 	var audioBuffer = new lime_media_AudioBuffer();
-	audioBuffer.set_src(new Howl({ src : ["data:" + lime_media_AudioBuffer.__getCodec(bytes) + ";base64," + lime__$internal_format_Base64.encode(bytes)], html5 : true, preload : false}));
+	audioBuffer.set_src(new lime_media_howlerjs_Howl({ src : ["data:" + lime_media_AudioBuffer.__getCodec(bytes) + ";base64," + lime__$internal_format_Base64.encode(bytes)], html5 : true, preload : false}));
 	return audioBuffer;
 };
 lime_media_AudioBuffer.fromFile = function(path) {
@@ -77292,12 +77296,12 @@ lime_media_AudioBuffer.fromFile = function(path) {
 		return null;
 	}
 	var audioBuffer = new lime_media_AudioBuffer();
-	audioBuffer.__srcHowl = new Howl({ src : [path], preload : false});
+	audioBuffer.__srcHowl = new lime_media_howlerjs_Howl({ src : [path], preload : false});
 	return audioBuffer;
 };
 lime_media_AudioBuffer.fromFiles = function(paths) {
 	var audioBuffer = new lime_media_AudioBuffer();
-	audioBuffer.__srcHowl = new Howl({ src : paths, preload : false});
+	audioBuffer.__srcHowl = new lime_media_howlerjs_Howl({ src : paths, preload : false});
 	return audioBuffer;
 };
 lime_media_AudioBuffer.fromVorbisFile = function(vorbisFile) {
@@ -78348,6 +78352,137 @@ lime_media_OpenALAudioContext.prototype = {
 		lime_media_openal_ALC.suspendContext(context);
 	}
 	,__class__: lime_media_OpenALAudioContext
+};
+var lime_media_WebAudioContext = function() {
+};
+$hxClasses["lime.media.WebAudioContext"] = lime_media_WebAudioContext;
+lime_media_WebAudioContext.__name__ = "lime.media.WebAudioContext";
+lime_media_WebAudioContext.prototype = {
+	activeSourceCount: null
+	,currentTime: null
+	,destination: null
+	,listener: null
+	,oncomplete: null
+	,sampleRate: null
+	,createAnalyser: function() {
+		return null;
+	}
+	,createBiquadFilter: function() {
+		return null;
+	}
+	,createBuffer: function(buffer,mixToMono) {
+		return null;
+	}
+	,createBufferSource: function() {
+		return null;
+	}
+	,createChannelMerger: function(numberOfInputs) {
+		return null;
+	}
+	,createChannelSplitter: function(numberOfOutputs) {
+		return null;
+	}
+	,createConvolver: function() {
+		return null;
+	}
+	,createDelay: function(maxDelayTime) {
+		return null;
+	}
+	,createDynamicsCompressor: function() {
+		return null;
+	}
+	,createGain: function() {
+		return null;
+	}
+	,createMediaElementSource: function(mediaElement) {
+		return null;
+	}
+	,createMediaStreamSource: function(mediaStream) {
+		return null;
+	}
+	,createOscillator: function() {
+		return null;
+	}
+	,createPanner: function() {
+		return null;
+	}
+	,createScriptProcessor: function(bufferSize,numberOfInputChannels,numberOfOutputChannels) {
+		return null;
+	}
+	,createWaveShaper: function() {
+		return null;
+	}
+	,createWaveTable: function(real,imag) {
+		return null;
+	}
+	,decodeAudioData: function(audioData,successCallback,errorCallback) {
+	}
+	,startRendering: function() {
+	}
+	,__class__: lime_media_WebAudioContext
+};
+var lime_media_howlerjs_Howl = function(options) {
+};
+$hxClasses["lime.media.howlerjs.Howl"] = lime_media_howlerjs_Howl;
+lime_media_howlerjs_Howl.__name__ = "lime.media.howlerjs.Howl";
+lime_media_howlerjs_Howl.prototype = {
+	duration: function(id) {
+		return 0;
+	}
+	,fade: function(from,to,len,id) {
+		return this;
+	}
+	,load: function() {
+		return this;
+	}
+	,loop: function(loop,id) {
+		return null;
+	}
+	,mute: function(muted,id) {
+		return this;
+	}
+	,off: function(event,fn,id) {
+		return this;
+	}
+	,on: function(event,fn,id) {
+		return this;
+	}
+	,once: function(event,fn,id) {
+		return this;
+	}
+	,pause: function(id) {
+		return this;
+	}
+	,play: function(sprite) {
+		return 0;
+	}
+	,playing: function(id) {
+		return false;
+	}
+	,rate: function(rate,id) {
+		return null;
+	}
+	,seek: function(seek,id) {
+		return null;
+	}
+	,state: function() {
+		return null;
+	}
+	,stop: function(id) {
+		return this;
+	}
+	,unload: function() {
+	}
+	,volume: function(vol,id) {
+		return null;
+	}
+	,pos: function(x,y,z,id) {
+		return null;
+	}
+	,stereo: function(pan,id) {
+		return null;
+	}
+	,__class__: lime_media_howlerjs_Howl
 };
 var lime_media_openal_AL = function() { };
 $hxClasses["lime.media.openal.AL"] = lime_media_openal_AL;
@@ -80564,7 +80699,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 778614;
+	this.version = 191803;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -81482,71 +81617,9 @@ var lime_utils_Assets = function() { };
 $hxClasses["lime.utils.Assets"] = lime_utils_Assets;
 lime_utils_Assets.__name__ = "lime.utils.Assets";
 lime_utils_Assets.exists = function(id,type) {
-	if(type == null) {
-		type = "BINARY";
-	}
-	var id1 = id;
-	var colonIndex = id1.indexOf(":");
-	var symbol_libraryName = id1.substring(0,colonIndex);
-	var symbol_symbolName = id1.substring(colonIndex + 1);
-	var symbol_library = lime_utils_Assets.getLibrary(symbol_libraryName);
-	if(symbol_library != null) {
-		return symbol_library.exists(symbol_symbolName,type);
-	}
 	return false;
 };
 lime_utils_Assets.getAsset = function(id,type,useCache) {
-	if(useCache && lime_utils_Assets.cache.enabled) {
-		switch(type) {
-		case "BINARY":case "TEXT":
-			useCache = false;
-			break;
-		case "FONT":
-			var font = lime_utils_Assets.cache.font.h[id];
-			if(font != null) {
-				return font;
-			}
-			break;
-		case "IMAGE":
-			var image = lime_utils_Assets.cache.image.h[id];
-			if(lime_utils_Assets.isValidImage(image)) {
-				return image;
-			}
-			break;
-		case "MUSIC":case "SOUND":
-			var audio = lime_utils_Assets.cache.audio.h[id];
-			if(lime_utils_Assets.isValidAudio(audio)) {
-				return audio;
-			}
-			break;
-		case "TEMPLATE":
-			throw haxe_Exception.thrown("Not sure how to get template: " + id);
-		default:
-			return null;
-		}
-	}
-	var id1 = id;
-	var colonIndex = id1.indexOf(":");
-	var symbol_libraryName = id1.substring(0,colonIndex);
-	var symbol_symbolName = id1.substring(colonIndex + 1);
-	var symbol_library = lime_utils_Assets.getLibrary(symbol_libraryName);
-	if(symbol_library != null) {
-		if(symbol_library.exists(symbol_symbolName,type)) {
-			if(symbol_library.isLocal(symbol_symbolName,type)) {
-				var asset = symbol_library.getAsset(symbol_symbolName,type);
-				if(useCache && lime_utils_Assets.cache.enabled) {
-					lime_utils_Assets.cache.set(id,type,asset);
-				}
-				return asset;
-			} else {
-				lime_utils_Log.error(type + " asset \"" + id + "\" exists, but only asynchronously",{ fileName : "lime/utils/Assets.hx", lineNumber : 133, className : "lime.utils.Assets", methodName : "getAsset"});
-			}
-		} else {
-			lime_utils_Log.error("There is no " + type + " asset with an ID of \"" + id + "\"",{ fileName : "lime/utils/Assets.hx", lineNumber : 138, className : "lime.utils.Assets", methodName : "getAsset"});
-		}
-	} else {
-		lime_utils_Log.error(lime_utils_Assets.__libraryNotFound(symbol_libraryName),{ fileName : "lime/utils/Assets.hx", lineNumber : 143, className : "lime.utils.Assets", methodName : "getAsset"});
-	}
 	return null;
 };
 lime_utils_Assets.getAudioBuffer = function(id,useCache) {
@@ -81577,20 +81650,6 @@ lime_utils_Assets.getLibrary = function(name) {
 	return lime_utils_Assets.libraries.h[name];
 };
 lime_utils_Assets.getPath = function(id) {
-	var id1 = id;
-	var colonIndex = id1.indexOf(":");
-	var symbol_libraryName = id1.substring(0,colonIndex);
-	var symbol_symbolName = id1.substring(colonIndex + 1);
-	var symbol_library = lime_utils_Assets.getLibrary(symbol_libraryName);
-	if(symbol_library != null) {
-		if(symbol_library.exists(symbol_symbolName,null)) {
-			return symbol_library.getPath(symbol_symbolName);
-		} else {
-			lime_utils_Log.error("There is no asset with an ID of \"" + id + "\"",{ fileName : "lime/utils/Assets.hx", lineNumber : 224, className : "lime.utils.Assets", methodName : "getPath"});
-		}
-	} else {
-		lime_utils_Log.error(lime_utils_Assets.__libraryNotFound(symbol_libraryName),{ fileName : "lime/utils/Assets.hx", lineNumber : 229, className : "lime.utils.Assets", methodName : "getPath"});
-	}
 	return null;
 };
 lime_utils_Assets.getText = function(id) {
@@ -81606,21 +81665,7 @@ lime_utils_Assets.isLocal = function(id,type,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	if(useCache && lime_utils_Assets.cache.enabled) {
-		if(lime_utils_Assets.cache.exists(id,type)) {
-			return true;
-		}
-	}
-	var id1 = id;
-	var colonIndex = id1.indexOf(":");
-	var symbol_libraryName = id1.substring(0,colonIndex);
-	var symbol_symbolName = id1.substring(colonIndex + 1);
-	var symbol_library = lime_utils_Assets.getLibrary(symbol_libraryName);
-	if(symbol_library != null) {
-		return symbol_library.isLocal(symbol_symbolName,type);
-	} else {
-		return false;
-	}
+	return false;
 };
 lime_utils_Assets.isValidAudio = function(buffer) {
 	return buffer != null;
@@ -81645,55 +81690,7 @@ lime_utils_Assets.list = function(type) {
 	return items;
 };
 lime_utils_Assets.loadAsset = function(id,type,useCache) {
-	if(useCache && lime_utils_Assets.cache.enabled) {
-		switch(type) {
-		case "BINARY":case "TEXT":
-			useCache = false;
-			break;
-		case "FONT":
-			var font = lime_utils_Assets.cache.font.h[id];
-			if(font != null) {
-				return lime_app_Future.withValue(font);
-			}
-			break;
-		case "IMAGE":
-			var image = lime_utils_Assets.cache.image.h[id];
-			if(lime_utils_Assets.isValidImage(image)) {
-				return lime_app_Future.withValue(image);
-			}
-			break;
-		case "MUSIC":case "SOUND":
-			var audio = lime_utils_Assets.cache.audio.h[id];
-			if(lime_utils_Assets.isValidAudio(audio)) {
-				return lime_app_Future.withValue(audio);
-			}
-			break;
-		case "TEMPLATE":
-			throw haxe_Exception.thrown("Not sure how to get template: " + id);
-		default:
-			return null;
-		}
-	}
-	var id1 = id;
-	var colonIndex = id1.indexOf(":");
-	var symbol_libraryName = id1.substring(0,colonIndex);
-	var symbol_symbolName = id1.substring(colonIndex + 1);
-	var symbol_library = lime_utils_Assets.getLibrary(symbol_libraryName);
-	if(symbol_library != null) {
-		if(symbol_library.exists(symbol_symbolName,type)) {
-			var future = symbol_library.loadAsset(symbol_symbolName,type);
-			if(useCache && lime_utils_Assets.cache.enabled) {
-				future.onComplete(function(asset) {
-					lime_utils_Assets.cache.set(id,type,asset);
-				});
-			}
-			return future;
-		} else {
-			return lime_app_Future.withError("There is no " + type + " asset with an ID of \"" + id + "\"");
-		}
-	} else {
-		return lime_app_Future.withError(lime_utils_Assets.__libraryNotFound(symbol_libraryName));
-	}
+	return null;
 };
 lime_utils_Assets.loadAudioBuffer = function(id,useCache) {
 	if(useCache == null) {
@@ -81718,59 +81715,6 @@ lime_utils_Assets.loadImage = function(id,useCache) {
 };
 lime_utils_Assets.loadLibrary = function(id) {
 	var promise = new lime_app_Promise();
-	var library = lime_utils_Assets.getLibrary(id);
-	if(library != null) {
-		return library.load();
-	}
-	var path = id;
-	var rootPath = null;
-	if(Object.prototype.hasOwnProperty.call(lime_utils_Assets.bundlePaths.h,id)) {
-		lime_utils_AssetBundle.loadFromFile(lime_utils_Assets.bundlePaths.h[id]).onComplete(function(bundle) {
-			if(bundle == null) {
-				promise.error("Cannot load bundle for library \"" + id + "\"");
-				return;
-			}
-			var library = lime_utils_AssetLibrary.fromBundle(bundle);
-			if(library == null) {
-				promise.error("Cannot open library \"" + id + "\"");
-			} else {
-				lime_utils_Assets.libraries.h[id] = library;
-				library.onChange.add(($_=lime_utils_Assets.onChange,$bind($_,$_.dispatch)));
-				promise.completeWith(library.load());
-			}
-		}).onError(function(_) {
-			promise.error("There is no asset library with an ID of \"" + id + "\"");
-		});
-	} else {
-		if(Object.prototype.hasOwnProperty.call(lime_utils_Assets.libraryPaths.h,id)) {
-			path = lime_utils_Assets.libraryPaths.h[id];
-			rootPath = haxe_io_Path.directory(path);
-		} else {
-			if(StringTools.endsWith(path,".bundle")) {
-				rootPath = path;
-				path += "/library.json";
-			} else {
-				rootPath = haxe_io_Path.directory(path);
-			}
-			path = lime_utils_Assets.__cacheBreak(path);
-		}
-		lime_utils_AssetManifest.loadFromFile(path,rootPath).onComplete(function(manifest) {
-			if(manifest == null) {
-				promise.error("Cannot parse asset manifest for library \"" + id + "\"");
-				return;
-			}
-			var library = lime_utils_AssetLibrary.fromManifest(manifest);
-			if(library == null) {
-				promise.error("Cannot open library \"" + id + "\"");
-			} else {
-				lime_utils_Assets.libraries.h[id] = library;
-				library.onChange.add(($_=lime_utils_Assets.onChange,$bind($_,$_.dispatch)));
-				promise.completeWith(library.load());
-			}
-		}).onError(function(_) {
-			promise.error("There is no asset library with an ID of \"" + id + "\"");
-		});
-	}
 	return promise.future;
 };
 lime_utils_Assets.loadText = function(id) {
@@ -81790,19 +81734,6 @@ lime_utils_Assets.registerLibrary = function(name,library) {
 	lime_utils_Assets.libraries.h[name] = library;
 };
 lime_utils_Assets.unloadLibrary = function(name) {
-	if(name == null || name == "") {
-		name = "default";
-	}
-	var library = lime_utils_Assets.libraries.h[name];
-	if(library != null) {
-		lime_utils_Assets.cache.clear(name + ":");
-		library.onChange.remove(lime_utils_Assets.library_onChange);
-		library.unload();
-	}
-	var _this = lime_utils_Assets.libraries;
-	if(Object.prototype.hasOwnProperty.call(_this.h,name)) {
-		delete(_this.h[name]);
-	}
 };
 lime_utils_Assets.__cacheBreak = function(path) {
 	if(lime_utils_Assets.cache.version > 0) {
@@ -111918,10 +111849,6 @@ openfl_display3D_textures_CubeTexture.prototype = $extend(openfl_display3D_textu
 		if(miplevel == null) {
 			miplevel = 0;
 		}
-		if(byteArrayOffset == 0) {
-			this.uploadFromTypedArray(data.b,side,miplevel);
-			return;
-		}
 		var elements = null;
 		var array = null;
 		var vector = null;
@@ -112347,10 +112274,6 @@ openfl_display3D_textures_RectangleTexture.prototype = $extend(openfl_display3D_
 		this.uploadFromTypedArray(image.get_data());
 	}
 	,uploadFromByteArray: function(data,byteArrayOffset) {
-		if(byteArrayOffset == 0) {
-			this.uploadFromTypedArray(data.b);
-			return;
-		}
 		var elements = null;
 		var array = null;
 		var vector = null;
@@ -112507,10 +112430,6 @@ openfl_display3D_textures_Texture.prototype = $extend(openfl_display3D_textures_
 	,uploadFromByteArray: function(data,byteArrayOffset,miplevel) {
 		if(miplevel == null) {
 			miplevel = 0;
-		}
-		if(byteArrayOffset == 0) {
-			this.uploadFromTypedArray(data.b,miplevel);
-			return;
 		}
 		var elements = null;
 		var array = null;
@@ -115902,15 +115821,6 @@ openfl_net_URLLoader.prototype = $extend(openfl_events_EventDispatcher.prototype
 		var event = new openfl_events_HTTPStatusEvent("httpStatus",false,false,this.__httpRequest.responseStatus);
 		event.responseURL = this.__httpRequest.uri;
 		var headers = [];
-		if(this.__httpRequest.enableResponseHeaders && this.__httpRequest.responseHeaders != null) {
-			var _g = 0;
-			var _g1 = this.__httpRequest.responseHeaders;
-			while(_g < _g1.length) {
-				var header = _g1[_g];
-				++_g;
-				headers.push(new openfl_net_URLRequestHeader(header.name,header.value));
-			}
-		}
 		event.responseHeaders = headers;
 		this.dispatchEvent(event);
 	}
@@ -115925,7 +115835,7 @@ openfl_net_URLLoader.prototype = $extend(openfl_events_EventDispatcher.prototype
 				while(_g < fields.length) {
 					var field = fields[_g];
 					++_g;
-					this.__httpRequest.formData.h[field] = Reflect.field(request.data,field);
+					this.__httpRequest.formData.set(field,Reflect.field(request.data,field));
 				}
 			} else if(((request.data) instanceof haxe_io_Bytes)) {
 				this.__httpRequest.data = request.data;
@@ -119515,20 +119425,6 @@ openfl_utils_Assets.getBitmapData = function(id,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	if(useCache && openfl_utils_Assets.cache.get_enabled() && openfl_utils_Assets.cache.hasBitmapData(id)) {
-		var bitmapData = openfl_utils_Assets.cache.getBitmapData(id);
-		if(openfl_utils_Assets.isValidBitmapData(bitmapData)) {
-			return bitmapData;
-		}
-	}
-	var image = lime_utils_Assets.getImage(id,false);
-	if(image != null) {
-		var bitmapData = openfl_display_BitmapData.fromImage(image);
-		if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-			openfl_utils_Assets.cache.setBitmapData(id,bitmapData);
-		}
-		return bitmapData;
-	}
 	return null;
 };
 openfl_utils_Assets.getBytes = function(id) {
@@ -119538,43 +119434,12 @@ openfl_utils_Assets.getFont = function(id,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	if(useCache && openfl_utils_Assets.cache.get_enabled() && openfl_utils_Assets.cache.hasFont(id)) {
-		return openfl_utils_Assets.cache.getFont(id);
-	}
-	var limeFont = lime_utils_Assets.getFont(id,false);
-	if(limeFont != null) {
-		var font = new openfl_text_Font();
-		font.__fromLimeFont(limeFont);
-		if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-			openfl_utils_Assets.cache.setFont(id,font);
-		}
-		return font;
-	}
 	return new openfl_text_Font();
 };
 openfl_utils_Assets.getLibrary = function(name) {
 	return lime_utils_Assets.getLibrary(name);
 };
 openfl_utils_Assets.getMovieClip = function(id) {
-	var libraryName = id.substring(0,id.indexOf(":"));
-	var symbolName = HxOverrides.substr(id,id.indexOf(":") + 1,null);
-	var limeLibrary = openfl_utils_Assets.getLibrary(libraryName);
-	if(limeLibrary != null) {
-		if(((limeLibrary) instanceof openfl_utils_AssetLibrary)) {
-			var library = limeLibrary;
-			if(library.exists(symbolName,"MOVIE_CLIP")) {
-				if(library.isLocal(symbolName,"MOVIE_CLIP")) {
-					return library.getMovieClip(symbolName);
-				} else {
-					lime_utils_Log.error("MovieClip asset \"" + id + "\" exists, but only asynchronously",{ fileName : "openfl/utils/Assets.hx", lineNumber : 159, className : "openfl.utils.Assets", methodName : "getMovieClip"});
-					return null;
-				}
-			}
-		}
-		lime_utils_Log.error("There is no MovieClip asset with an ID of \"" + id + "\"",{ fileName : "openfl/utils/Assets.hx", lineNumber : 165, className : "openfl.utils.Assets", methodName : "getMovieClip"});
-	} else {
-		lime_utils_Log.error("There is no asset library named \"" + libraryName + "\"",{ fileName : "openfl/utils/Assets.hx", lineNumber : 169, className : "openfl.utils.Assets", methodName : "getMovieClip"});
-	}
 	return null;
 };
 openfl_utils_Assets.getMusic = function(id,useCache) {
@@ -119589,20 +119454,6 @@ openfl_utils_Assets.getPath = function(id) {
 openfl_utils_Assets.getSound = function(id,useCache) {
 	if(useCache == null) {
 		useCache = true;
-	}
-	if(useCache && openfl_utils_Assets.cache.get_enabled() && openfl_utils_Assets.cache.hasSound(id)) {
-		var sound = openfl_utils_Assets.cache.getSound(id);
-		if(openfl_utils_Assets.isValidSound(sound)) {
-			return sound;
-		}
-	}
-	var buffer = lime_utils_Assets.getAudioBuffer(id,false);
-	if(buffer != null) {
-		var sound = openfl_media_Sound.fromAudioBuffer(buffer);
-		if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-			openfl_utils_Assets.cache.setSound(id,sound);
-		}
-		return sound;
 	}
 	return null;
 };
@@ -119619,33 +119470,10 @@ openfl_utils_Assets.isLocal = function(id,type,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-		if(type == "IMAGE" || type == null) {
-			if(openfl_utils_Assets.cache.hasBitmapData(id)) {
-				return true;
-			}
-		}
-		if(type == "FONT" || type == null) {
-			if(openfl_utils_Assets.cache.hasFont(id)) {
-				return true;
-			}
-		}
-		if(type == "SOUND" || type == "MUSIC" || type == null) {
-			if(openfl_utils_Assets.cache.hasSound(id)) {
-				return true;
-			}
-		}
-	}
-	var libraryName = id.substring(0,id.indexOf(":"));
-	var symbolName = HxOverrides.substr(id,id.indexOf(":") + 1,null);
-	var library = openfl_utils_Assets.getLibrary(libraryName);
-	if(library != null) {
-		return library.isLocal(symbolName,type);
-	}
 	return false;
 };
 openfl_utils_Assets.isValidBitmapData = function(bitmapData) {
-	return bitmapData != null && bitmapData.image != null;
+	return true;
 };
 openfl_utils_Assets.isValidSound = function(sound) {
 	return true;
@@ -119660,26 +119488,7 @@ openfl_utils_Assets.loadBitmapData = function(id,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	var promise = new lime_app_Promise();
-	if(useCache && openfl_utils_Assets.cache.get_enabled() && openfl_utils_Assets.cache.hasBitmapData(id)) {
-		var bitmapData = openfl_utils_Assets.cache.getBitmapData(id);
-		if(openfl_utils_Assets.isValidBitmapData(bitmapData)) {
-			promise.complete(bitmapData);
-			return promise.future;
-		}
-	}
-	lime_utils_Assets.loadImage(id,false).onComplete(function(image) {
-		if(image != null) {
-			var bitmapData = openfl_display_BitmapData.fromImage(image);
-			if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-				openfl_utils_Assets.cache.setBitmapData(id,bitmapData);
-			}
-			promise.complete(bitmapData);
-		} else {
-			promise.error("[Assets] Could not load Image \"" + id + "\"");
-		}
-	}).onError($bind(promise,promise.error)).onProgress($bind(promise,promise.progress));
-	return promise.future;
+	return lime_app_Future.withValue(openfl_utils_Assets.getBitmapData(id,useCache));
 };
 openfl_utils_Assets.loadBytes = function(id) {
 	var promise = new lime_app_Promise();
@@ -119702,20 +119511,7 @@ openfl_utils_Assets.loadFont = function(id,useCache) {
 	if(useCache == null) {
 		useCache = true;
 	}
-	var promise = new lime_app_Promise();
-	if(useCache && openfl_utils_Assets.cache.get_enabled() && openfl_utils_Assets.cache.hasFont(id)) {
-		promise.complete(openfl_utils_Assets.cache.getFont(id));
-		return promise.future;
-	}
-	lime_utils_Assets.loadFont(id).onComplete(function(limeFont) {
-		var font = new openfl_text_Font();
-		font.__fromLimeFont(limeFont);
-		if(useCache && openfl_utils_Assets.cache.get_enabled()) {
-			openfl_utils_Assets.cache.setFont(id,font);
-		}
-		promise.complete(font);
-	}).onError($bind(promise,promise.error)).onProgress($bind(promise,promise.progress));
-	return promise.future;
+	return lime_app_Future.withValue(openfl_utils_Assets.getFont(id,useCache));
 };
 openfl_utils_Assets.loadLibrary = function(name) {
 	return lime_utils_Assets.loadLibrary(name).then(function(library) {
@@ -119745,23 +119541,7 @@ openfl_utils_Assets.loadMusic = function(id,useCache) {
 	return future;
 };
 openfl_utils_Assets.loadMovieClip = function(id) {
-	var promise = new lime_app_Promise();
-	var libraryName = id.substring(0,id.indexOf(":"));
-	var symbolName = HxOverrides.substr(id,id.indexOf(":") + 1,null);
-	var limeLibrary = openfl_utils_Assets.getLibrary(libraryName);
-	if(limeLibrary != null) {
-		if(((limeLibrary) instanceof openfl_utils_AssetLibrary)) {
-			var library = limeLibrary;
-			if(library.exists(symbolName,"MOVIE_CLIP")) {
-				promise.completeWith(library.loadMovieClip(symbolName));
-				return promise.future;
-			}
-		}
-		promise.error("[Assets] There is no MovieClip asset with an ID of \"" + id + "\"");
-	} else {
-		promise.error("[Assets] There is no asset library named \"" + libraryName + "\"");
-	}
-	return promise.future;
+	return lime_app_Future.withValue(openfl_utils_Assets.getMovieClip(id));
 };
 openfl_utils_Assets.loadSound = function(id,useCache) {
 	if(useCache == null) {
