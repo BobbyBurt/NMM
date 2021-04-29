@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene width="960" height="600" bgColor="#f2f2f2" name="" description="" version="1.0">
+
+<!-- Better not be any duplicate interactable IDs, each should be unique -->
+
+<!-- Get these values using FlxScene.const("id") -->
+	<constants>
+		<const id="Stall" type="Bool" value="True" />
+		<const id="PreviousScene" type="String" value="" />
+
+		<const id="Inter" type="String" value="Line1" />
+		<const id="Inter_2" type="String" value="Line2" />
+		<const id="Inter_2_a" type="String" value="unique animation" />
+	</constants>
+
+		<!-- INTERACTABLES -->
+	<!-- Better not be any duplicate interactable IDs, each should be unique -->
+	<!-- graphic attribute is loaded by FlxScene. I'm having Interactive.hx load animation attribute -->
+	<layer id="interactable">
+		<entity type="Interactable" id="TemplateToiletGuy" x="220" y="250" animation="assets/Characters/ToiletGuy/ToiletGuy"> </entity>
+	</layer>
+
+	<!-- bg -->
+	<backgrounds>
+		<sprite graphics="assets/Objects/Toilet.png" x="200" y="100"/>
+		<!--backdrop graphics="Urinals.jpg" repeatX="true" repeatY="false" scrollFactorX="0.8" scrollFactorY="1" x="0" y="200" /-->
+	</backgrounds>
+
+</scene>

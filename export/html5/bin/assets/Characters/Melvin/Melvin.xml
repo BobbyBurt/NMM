@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:71323e91ba29d5954278cae1b3111fd7:493efbfd38f908f00545a481d0468981:2127046b91b9c2ca563c240ee5fe948b$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Melvin.png" width="947" height="192">
+    <sprite n="Idle/0000" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0000" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200" loop="false"/>
+    <sprite n="Talking/0001" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0002" x="384" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0003" x="384" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0004" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0005" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0006" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0007" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0008" x="760" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0009" x="760" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0010" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0011" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0012" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0013" x="196" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0014" x="1" y="1" w="193" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0015" x="1" y="1" w="193" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0016" x="760" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Talking/0017" x="760" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="DialogueTest/0000" x="760" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="DialogueTest2/0000" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200"/>
+    <sprite n="Overlap/0000" x="572" y="1" w="186" h="190" oX="5" oY="2" oW="200" oH="200" loop="false"/>
+</TextureAtlas>

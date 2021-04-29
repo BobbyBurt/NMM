@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:c33a13d8d137bce809c070b6d28af00c:c724ee6c294d43ab353f412c55f174c8:05d64e6909d7ad58685f34a24b9e0b32$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="EnterPrompt.png" width="99" height="181">
+    <sprite n="EnterPrompt/0000" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0001" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0002" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0003" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0004" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0005" x="1" y="92" w="97" h="88" oX="3" oY="8" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0006" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0007" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0008" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0009" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0010" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+    <sprite n="EnterPrompt/0011" x="1" y="1" w="97" h="89" oX="3" oY="7" oW="100" oH="100"/>
+</TextureAtlas>

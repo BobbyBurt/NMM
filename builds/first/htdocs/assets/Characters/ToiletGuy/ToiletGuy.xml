@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:009f59dcd10d8cf63ad59d857ec6e6e2:6828d1738e8f962815ed865c70886fe9:de7664eb6ddd72ac83eeec016b5f7e8d$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="ToiletGuy.png" width="1600" height="800">
+    <sprite n="Angry/0000" x="0" y="0" w="400" h="400"/>
+    <sprite n="Angry/0001" x="0" y="0" w="400" h="400"/>
+    <sprite n="Angry/0002" x="0" y="0" w="400" h="400"/>
+    <sprite n="Angry/0003" x="0" y="0" w="400" h="400"/>
+    <sprite n="Angry/0004" x="400" y="0" w="400" h="400"/>
+    <sprite n="Angry/0005" x="400" y="0" w="400" h="400"/>
+    <sprite n="Angry/0006" x="400" y="0" w="400" h="400"/>
+    <sprite n="Idle/0000" x="800" y="0" w="400" h="400"/>
+    <sprite n="Idle/0001" x="800" y="0" w="400" h="400"/>
+    <sprite n="Idle/0002" x="800" y="0" w="400" h="400"/>
+    <sprite n="Idle/0003" x="800" y="0" w="400" h="400"/>
+    <sprite n="Idle/0004" x="1200" y="0" w="400" h="400"/>
+    <sprite n="Idle/0005" x="1200" y="0" w="400" h="400"/>
+    <sprite n="Idle/0006" x="1200" y="0" w="400" h="400"/>
+    <sprite n="Idle/0007" x="1200" y="0" w="400" h="400"/>
+    <sprite n="Overlap/0000" x="0" y="400" w="400" h="400"/>
+    <sprite n="Talking/0000" x="400" y="400" w="400" h="400"/>
+    <sprite n="Talking/0001" x="400" y="400" w="400" h="400"/>
+    <sprite n="Talking/0002" x="400" y="400" w="400" h="400"/>
+    <sprite n="Talking/0003" x="400" y="400" w="400" h="400"/>
+    <sprite n="Talking/0004" x="800" y="400" w="400" h="400"/>
+    <sprite n="Talking/0005" x="800" y="400" w="400" h="400"/>
+    <sprite n="Talking/0006" x="800" y="400" w="400" h="400"/>
+    <sprite n="Talking/0007" x="800" y="400" w="400" h="400"/>
+</TextureAtlas>

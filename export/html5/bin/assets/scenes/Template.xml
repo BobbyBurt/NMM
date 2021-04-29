@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene width="960" height="600" bgColor="#f2f2f2" name="" description="" version="1.0">
+
+<!-- Get these values using FlxScene.const("id") -->
+	<constants>
+		<const id="NextScene" type="String" value="" />
+		<const id="PreviousScene" type="String" value="" />
+
+		<const id="Inter" type="String" value="Line1" />
+		<const id="Inter_2" type="String" value="Line2" />
+		<const id="Inter_2_a" type="String" value="unique animation" />
+	</constants>
+
+		<!-- INTERACTABLES -->
+	<!-- Better not be any duplicate interactable IDs, each should be unique -->
+	<!-- graphic attribute is loaded by FlxScene. I'm having Interactive.hx load animation attribute -->
+	<layer id="interactable">
+		<entity type="Interactable" id="inter" x="300" y="280" graphic="Characters/graphic.png" animation="assets/Characters/TestInter/TestInter"> </entity>
+	</layer>
+
+	<layer id="stalls">
+		<entity type="Stall" id="TestStall" scene="TemplateStall" x="600" y="100"> </entity>
+		<entity type="Stall" id="TestStall" scene="Tests/StallTest" x="600" y="100"> </entity>
+	</layer>
+
+		<!-- BG -->
+	<!-- layered by order loaded / organized here -->
+	<backgrounds>
+		<backdrop graphics="Urinals.jpg" repeatX="true" repeatY="false" scrollFactorX="1" scrollFactorY="1" x="0" y="200" />
+	</backgrounds>
+
+	<layer id="BGSprites">
+		<!--sprite graphic="Murdoc.png" x="130" y="100"/-->
+	</layer>
+
+</scene>

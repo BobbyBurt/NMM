@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene width="960" height="600" bgColor="white" name="Scene Attempt" description="Figuring out how xml works" version="1.0">
+<!-- INCOMPATABLE WITH CURRENT CODE. WILL CRASH -->
+	<test>
+		<number>0000</number>
+	</test>
+
+<!-- Better not be any duplicate interactable IDs, each should be unique -->
+
+<!-- Get these values using FlxScene.const("id") -->
+	<constants>
+		<const id="NextScene" type="String" value="MelvinTest" />
+		<const id="PreviousScene" type="String" value="FirstSceneAttempt" />
+
+		<const id="Test1" type="String" value="this is the dialogue in scene xml as a constant blah blah blah. Need I say more?" />
+		<const id="Test1_2" type="String" value="i lot more dialogue. im loaded, baby!" />
+		<const id="Test1_3" type="String" value="im all out. no more lines. three should do it cause i gotta test the llinecount" />
+		<const id="Test2" type="String" value="I'm test 2, the boring one" />
+	</constants>
+
+	<backgrounds>
+		<backdrop graphics="Urinals.jpg" repeatX="true" repeatY="false" scrollFactorX="0.5" scrollFactorY="0.5" x="0" y="200" />
+		<sprite graphics="images/Murdoc.png" />
+	</backgrounds>
+
+	<!-- interactive -->
+	<layer id="interactable">
+		<!-- graphic attribute is loaded by FlxScene. I'm having Interactive.hx load animation attribute -->
+		<entity type="Interactable" id="Melvin" x="300" y="280" graphic="Characters/graphic.png" animation="assets/Characters/Melvin/TestInteractive"> </entity>
+		<entity type="Interactable" id="Test2" x="700" y="280" graphic="Characters/graphic.png" animation="assets/Characters/TestInteractive2"> </entity>
+	</layer>
+</scene>

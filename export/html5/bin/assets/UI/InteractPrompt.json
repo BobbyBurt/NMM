@@ -1,0 +1,108 @@
+{"frames": [
+
+{
+	"filename": "InteractPrompt/0000",
+	"frame": {"x":1,"y":1,"w":73,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":7,"w":73,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0001",
+	"frame": {"x":1,"y":1,"w":73,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":7,"w":73,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0002",
+	"frame": {"x":1,"y":1,"w":73,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":7,"w":73,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0003",
+	"frame": {"x":1,"y":1,"w":73,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":7,"w":73,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0004",
+	"frame": {"x":1,"y":135,"w":73,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":6,"w":73,"h":66},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0005",
+	"frame": {"x":1,"y":135,"w":73,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":6,"w":73,"h":66},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0006",
+	"frame": {"x":1,"y":135,"w":73,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":6,"w":73,"h":66},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0007",
+	"frame": {"x":1,"y":135,"w":73,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":6,"w":73,"h":66},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0008",
+	"frame": {"x":1,"y":68,"w":74,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":74,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0009",
+	"frame": {"x":1,"y":68,"w":74,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":74,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0010",
+	"frame": {"x":1,"y":68,"w":74,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":74,"h":65},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "InteractPrompt/0011",
+	"frame": {"x":1,"y":68,"w":74,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":74,"h":65},
+	"sourceSize": {"w":75,"h":75}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "InteractPrompt.png",
+	"format": "RGBA8888",
+	"size": {"w":76,"h":202},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8c054800276617726c40857341aca6af:5cba8f3998c459356178b97d689ccac7:2e8b255805c909e51bd8760408df4765$"
+}
+}

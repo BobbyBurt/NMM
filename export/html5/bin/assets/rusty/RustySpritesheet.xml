@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:cac8cdaa2eae20d5e743262dd8f6e37e:a044dc44c6bb2e5c1df7a7141756bb00:1abd8ef6413a2414759aeb52c5cbecbb$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="RustySpritesheet.png" width="1000" height="200">
+    <sprite n="Idle/0000" x="0" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Interact/0000" x="200" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0000" x="400" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0001" x="400" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0002" x="400" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0003" x="600" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0004" x="600" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0005" x="600" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0006" x="800" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0007" x="800" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+    <sprite n="Walk/0008" x="800" y="0" w="200" h="200" pX="0.5" pY="0.9"/>
+</TextureAtlas>

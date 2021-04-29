@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:1cd218e6ad7ee1e679e911de2b680e5b:98b9328e2c5e01fa30a4cc382f188b08:2d338b5d88775353639fe990f97eb37e$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="MobileMoveButtons.png" width="573" height="271">
+    <sprite n="MobileMoveButtons/0000" x="0" y="0" w="292" h="264" oX="7" oY="27" oW="300" oH="300"/>
+    <sprite n="MobileMoveButtons/0001" x="292" y="0" w="281" h="271" oX="11" oY="24" oW="300" oH="300"/>
+</TextureAtlas>

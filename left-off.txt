@@ -1,0 +1,2 @@
+4/18/21
+tryna figure out how to set deceleration. Mode just sets acceleration to 0 at the start of an update, and the drag property doesn't seem to work. Code is a mess right now, moveLeft/Right() have code that i thought might be a solution. code magnetizing player to wall slides is disabled

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:4f5332e751e577220262ab0c6b1e1819:94b52c1dcd98e9b30acd2d7d7509a71d:995e197c7f4355bda72b01ec85e9d012$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="TestInter.png" width="1400" height="200">
+    <sprite n="Idle/0000" x="0" y="0" w="200" h="200"/>
+    <sprite n="Idle/0001" x="0" y="0" w="200" h="200"/>
+    <sprite n="Idle/0002" x="0" y="0" w="200" h="200"/>
+    <sprite n="Idle/0003" x="200" y="0" w="200" h="200"/>
+    <sprite n="Idle/0004" x="200" y="0" w="200" h="200"/>
+    <sprite n="Idle/0005" x="200" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0000" x="400" y="0" w="200" h="200" loop="false"/>
+    <sprite n="Overlap/0001" x="400" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0002" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0003" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0004" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0005" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0006" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0007" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0008" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0009" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0010" x="600" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0011" x="400" y="0" w="200" h="200"/>
+    <sprite n="Overlap/0012" x="400" y="0" w="200" h="200"/>
+    <sprite n="Talking/0000" x="800" y="0" w="200" h="200"/>
+    <sprite n="Talking/0001" x="800" y="0" w="200" h="200"/>
+    <sprite n="Talking/0002" x="800" y="0" w="200" h="200"/>
+    <sprite n="Talking/0003" x="1000" y="0" w="200" h="200"/>
+    <sprite n="Talking/0004" x="1000" y="0" w="200" h="200"/>
+    <sprite n="Talking/0005" x="1000" y="0" w="200" h="200"/>
+    <sprite n="Thinking/0000" x="1200" y="0" w="200" h="200"/>
+    <sprite n="Initial/0000" x="1200" y="0" w="200" h="200"/>
+</TextureAtlas>

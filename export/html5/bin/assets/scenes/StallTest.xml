@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene width="1300" height="600" bgColor="#f2f2f2" name="Scene Attempt" description="Figuring out how xml works" version="1.0">
+
+<!-- Better not be any duplicate interactable IDs, each should be unique -->
+
+<!-- Get these values using FlxScene.const("id") -->
+	<constants>
+		<const id="Stall" type="Bool" value="True" />
+		<const id="PreviousScene" type="String" value="TestInter" />
+
+		<const id="TestInter" type="String" value="Hello! I'm the third interactive test. My ID is Test Inter" />
+	</constants>
+
+	<!-- interactive -->
+	<layer id="stalls">
+		<!-- graphic attribute is loaded by FlxScene. I'm having Interactive.hx load animation attribute -->
+		<!--entity type="Stall" id="TestStall" x="300" y="280" </entity-->
+	</layer>
+
+	<!-- bg -->
+	<backgrounds>
+		<sprite graphics="assets/Murdoc.png" x="100" y="100"/>
+		<backdrop graphics="Urinals.jpg" repeatX="true" repeatY="false" scrollFactorX="0.8" scrollFactorY="1" x="0" y="200" />
+	</backgrounds>
+
+</scene>
