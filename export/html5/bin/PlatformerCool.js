@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "11";
+	app.meta.h["build"] = "13";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "PlatformerCool";
 	app.meta.h["name"] = "PlatformerCool";
@@ -7347,7 +7347,7 @@ ManifestResources.init = function(config) {
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$nokiafc22_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$monsterrat_$ttf);
 	var bundle;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy24:assets%2FBiggerTiles.pngy4:sizei1183y4:typey5:IMAGEy2:idR1y7:preloadtgoR0y24:assets%2FBiggerTiles.psdR2i53660R3y6:BINARYR5R7R6tgoR0y24:assets%2Fbullet-bill.pngR2i15445R3R4R5R9R6tgoR0y16:assets%2Fmap.pngR2i3715R3R4R5R10R6tgoR0y17:assets%2Fmap2.pngR2i2767R3R4R5R11R6tgoR0y17:assets%2Fmap3.pngR2i315R3R4R5R12R6tgoR0y32:assets%2Fnumber-tiles-bigger.pngR2i4998R3R4R5R13R6tgoR0y25:assets%2Fnumber-tiles.pngR2i2330R3R4R5R14R6tgoR0y18:assets%2Ftiles.pngR2i2916R3R4R5R15R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR17y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R16R5y28:flixel%2Fsounds%2Fflixel.mp3R18aR20y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R19R18aR17R19hgoR2i33629R3R22R5R21R18aR20R21hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R23R24y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R4R5R29R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R4R5R30R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy24:assets%2FBiggerTiles.pngy4:sizei1183y4:typey5:IMAGEy2:idR1y7:preloadtgoR0y24:assets%2FBiggerTiles.psdR2i53660R3y6:BINARYR5R7R6tgoR0y24:assets%2Fbullet-bill.pngR2i15445R3R4R5R9R6tgoR0y16:assets%2Fmap.pngR2i3715R3R4R5R10R6tgoR0y17:assets%2Fmap2.pngR2i2767R3R4R5R11R6tgoR0y17:assets%2Fmap3.pngR2i283R3R4R5R12R6tgoR0y32:assets%2Fnumber-tiles-bigger.pngR2i4998R3R4R5R13R6tgoR0y25:assets%2Fnumber-tiles.pngR2i2330R3R4R5R14R6tgoR0y18:assets%2Ftiles.pngR2i2916R3R4R5R15R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR17y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R16R5y28:flixel%2Fsounds%2Fflixel.mp3R18aR20y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R19R18aR17R19hgoR2i33629R3R22R5R21R18aR20R21hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R23R24y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R4R5R29R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R4R5R30R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -8400,17 +8400,19 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 	,__class__: PlayState
 });
 var Player = function(psBullets) {
+	this.wallSlideRight = false;
+	this.wallSlideLeft = false;
 	flixel_FlxSprite.call(this,500,100);
 	this.makeGraphic(35,35,-65536);
-	this.maxVelocity.set(400,1000);
+	this.maxVelocity.set(400,100);
 	this.acceleration.set_y(Player.GRAVITY);
 	this.drag.set_x(Player.DRAG_X);
 	this.bullets = psBullets;
 	this.right = new flixel_input_actions_FlxActionDigital().addKey(39,1).addGamepad(14,1);
 	this.left = new flixel_input_actions_FlxActionDigital().addKey(37,1).addGamepad(13,1);
-	this.jump = new flixel_input_actions_FlxActionDigital().addKey(67,2).addGamepad(1,2);
-	this.shoot = new flixel_input_actions_FlxActionDigital().addKey(90,2).addGamepad(18,2);
-	this.jump2 = new flixel_input_actions_FlxActionDigital().addKey(88,2).addGamepad(0,2);
+	this.jump = new flixel_input_actions_FlxActionDigital().addKey(70,2).addGamepad(1,2);
+	this.shoot = new flixel_input_actions_FlxActionDigital().addKey(83,2).addGamepad(18,2);
+	this.jump2 = new flixel_input_actions_FlxActionDigital().addKey(68,2).addGamepad(0,2);
 	if(Player.actions == null) {
 		Player.actions = flixel_FlxG.inputs.add_flixel_input_actions_FlxActionManager(new flixel_input_actions_FlxActionManager());
 	}
@@ -8449,12 +8451,10 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		if(this.grounded) {
 			this.drag.set_x(Player.DRAG_X);
 		} else {
-			this.drag.set_x(500);
+			this.drag.set_x(Player.DRAG_X_AIRBORNE);
 		}
 		this.updateInput();
 		this.grounded = (this.touching & 4096) > 0;
-		this.wallSlideLeft = (this.touching & 1) > 0 && !this.grounded;
-		this.wallSlideRight = (this.touching & 16) > 0 && !this.grounded;
 		if((this.wallSlideLeft || this.wallSlideRight) && this.velocity.y > 0) {
 			this.acceleration.set_y(100);
 			this.maxVelocity.set_y(150);
@@ -8507,14 +8507,7 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		if(this.jump2.triggered || action2M) {
 			this.doJump2();
 		}
-		if(!this.left.triggered && !this.right.triggered && !leftM && !rightM) {
-			if(this.wallSlideLeft) {
-				this.moveLeft();
-			}
-			if(this.wallSlideRight) {
-				this.moveRight();
-			}
-		}
+		this.wallslideCheck(this.left.triggered || leftM,this.right.triggered || rightM);
 	}
 	,moveLeft: function() {
 		this.acceleration.set_x(-Player.MOVE_SPEED);
@@ -8525,6 +8518,8 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 	,doJump: function() {
 		if(this.grounded) {
 			this.velocity.set_y(-Player.JUMP_FORCE);
+			var _g = this;
+			_g.set_y(_g.y - Player.JUMP_WARP);
 		} else if(this.wallSlideLeft) {
 			this.velocity.set_y(-Player.WALL_JUMP_FORCE_Y);
 			this.velocity.set_x(Player.WALL_JUMP_FORCE_X);
@@ -8534,9 +8529,154 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		}
 	}
 	,doJump2: function() {
+		var _g = this;
+		_g.set_y(_g.y - Player.JUMP_2_WARP);
 		this.velocity.set_y(-Player.JUMP_2_FORCE);
 	}
 	,doShoot: function() {
+	}
+	,wallslideCheck: function(leftInput,rightInput) {
+		if(leftInput && (this.touching & 1) > 0 && !this.grounded) {
+			this.wallSlideLeft = true;
+			this.makeGraphic(35,35,-1);
+		} else if(rightInput && (this.touching & 16) > 0 && !this.grounded) {
+			this.wallSlideRight = true;
+			this.makeGraphic(35,35,-1);
+		}
+		if(!leftInput && !rightInput) {
+			if(this.wallSlideLeft) {
+				this.moveLeft();
+			} else if(this.wallSlideRight) {
+				this.moveRight();
+			}
+		}
+		if(this.wallSlideLeft && (this.touching & 1) <= 0 || this.grounded) {
+			this.wallSlideLeft = false;
+			this.makeGraphic(35,35,-65536);
+		} else if(this.wallSlideRight && (this.touching & 16) <= 0 || this.grounded) {
+			this.wallSlideRight = false;
+			var Hue = flixel_util_FlxColor.get_hue(this.color);
+			var Alpha = (this.color >> 24 & 255) / 255;
+			var chroma = (1 - Math.abs(1)) * ((Math.max((this.color >> 16 & 255) / 255,Math.max((this.color >> 8 & 255) / 255,(this.color & 255) / 255)) - Math.min((this.color >> 16 & 255) / 255,Math.min((this.color >> 8 & 255) / 255,(this.color & 255) / 255))) / Math.max((this.color >> 16 & 255) / 255,Math.max((this.color >> 8 & 255) / 255,(this.color & 255) / 255)));
+			var match = 1 - chroma / 2;
+			var Hue1 = Hue;
+			var Chroma = chroma;
+			Hue1 %= 360;
+			var hueD = Hue1 / 60;
+			var mid = Chroma * (1 - Math.abs(hueD % 2 - 1)) + match;
+			Chroma += match;
+			switch(hueD | 0) {
+			case 0:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(mid * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(match * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			case 1:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(mid * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(match * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			case 2:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(match * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(mid * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			case 3:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(match * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(mid * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			case 4:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(mid * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(match * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			case 5:
+				var Alpha1 = Alpha;
+				if(Alpha1 == null) {
+					Alpha1 = 1;
+				}
+				var Value1 = Math.round(Chroma * 255);
+				this.color &= -16711681;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 16;
+				var Value1 = Math.round(match * 255);
+				this.color &= -65281;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 8;
+				var Value1 = Math.round(mid * 255);
+				this.color &= -256;
+				this.color |= Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1;
+				var Value1 = Math.round(Alpha1 * 255);
+				this.color &= 16777215;
+				this.color |= (Value1 > 255 ? 255 : Value1 < 0 ? 0 : Value1) << 24;
+				break;
+			}
+			this.makeGraphic(35,35,-65536);
+		}
 	}
 	,passMobileUISprites: function(left,right,action1,action2) {
 		this.mobileUILeft = left;
@@ -120345,13 +120485,16 @@ flixel_FlxObject._secondSeparateFlxRect = (function($this) {
 }(this));
 openfl_text_Font.__fontByName = new haxe_ds_StringMap();
 openfl_text_Font.__registeredFonts = [];
-Player.JUMP_FORCE = 500;
-Player.JUMP_2_FORCE = 800;
-Player.WALL_JUMP_FORCE_X = 400;
-Player.WALL_JUMP_FORCE_Y = 300;
-Player.GRAVITY = 1200;
+Player.JUMP_FORCE = 900;
+Player.JUMP_2_FORCE = 1000;
+Player.JUMP_WARP = 15;
+Player.JUMP_2_WARP = 20;
+Player.WALL_JUMP_FORCE_X = 600;
+Player.WALL_JUMP_FORCE_Y = 500;
+Player.GRAVITY = 2000;
 Player.MOVE_SPEED = 3000;
 Player.DRAG_X = 3000;
+Player.DRAG_X_AIRBORNE = 300;
 flixel_system_FlxVersion.sha = "";
 openfl__$Vector_FloatVector.__meta__ = { obj : { SuppressWarnings : ["checkstyle:FieldDocComment"]}, fields : { toJSON : { SuppressWarnings : ["checkstyle:Dynamic"]}, _ : { SuppressWarnings : ["checkstyle:Dynamic"]}}};
 flixel_math_FlxPoint._pool = new flixel_util_FlxPool_$flixel_$math_$FlxPoint(flixel_math_FlxPoint);
