@@ -37,14 +37,14 @@ class Player extends FlxSprite
 	static var WALL_JUMP_FORCE_Y:Int = 300;
 	static var GRAVITY:Int = 1200;
 
-	static var MOVE_SPEED:Int = 1500;
-	static var DRAG_X:Int = 2000;
+	static var MOVE_SPEED:Int = 3000;
+	static var DRAG_X:Int = 3000;
 
 	public function new(psBullets:FlxTypedGroup<Bullet>)
 	{
 		super(500, 100);
 
-		makeGraphic(16, 16, FlxColor.RED);
+		makeGraphic(35, 35, FlxColor.RED);
 		maxVelocity.set(400, 1000); // max move speed, fall speed
 		acceleration.y = GRAVITY;
 		drag.x = DRAG_X;
@@ -183,7 +183,7 @@ class Player extends FlxSprite
 
 	function doShoot()
 	{
-		bullets.recycle(Bullet.new).set(getMidpoint());
+		//bullets.recycle(Bullet.new).set(getMidpoint());
 	}
 
 	public function passMobileUISprites(left:FlxSprite, right:FlxSprite, action1:FlxSprite, action2:FlxSprite)
