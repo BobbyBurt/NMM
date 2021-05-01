@@ -30,7 +30,7 @@ class PlayState extends FlxState
 
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		level = new FlxTilemap();
-		level.loadMapFromCSV(FlxStringUtil.imageToCSV("assets/map2.png", false, 1), "assets/tiles.png", 0, 0, ALT);
+		level.loadMapFromCSV(FlxStringUtil.imageToCSV("assets/map3.png", false, 1), "assets/tiles.png", 0, 0, ALT);
 		level.follow();
 		add(level);
 
@@ -51,6 +51,11 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		FlxG.collide(player, level);
+
+		if (player.y > FlxG.worldBounds.bottom + 500)
+		{
+			reset();
+		}
 
 		super.update(elapsed);
 	}
@@ -88,5 +93,13 @@ class PlayState extends FlxState
 		// added this comment. this is just a test. hello!
 
 		player.passMobileUISprites(mobileUILeft, mobileUIRight, mobileUIAction1, mobileUIAction2);
+	}
+
+	/**
+		call when player dies	
+	**/
+	function reset()
+	{
+		FlxG.resetState();
 	}
 }

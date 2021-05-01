@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "6";
+	app.meta.h["build"] = "11";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "PlatformerCool";
 	app.meta.h["name"] = "PlatformerCool";
@@ -7347,7 +7347,7 @@ ManifestResources.init = function(config) {
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$nokiafc22_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$monsterrat_$ttf);
 	var bundle;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy24:assets%2FBiggerTiles.pngy4:sizei1183y4:typey5:IMAGEy2:idR1y7:preloadtgoR0y24:assets%2FBiggerTiles.psdR2i53660R3y6:BINARYR5R7R6tgoR0y24:assets%2Fbullet-bill.pngR2i15445R3R4R5R9R6tgoR0y16:assets%2Fmap.pngR2i3715R3R4R5R10R6tgoR0y17:assets%2Fmap2.pngR2i2767R3R4R5R11R6tgoR0y32:assets%2Fnumber-tiles-bigger.pngR2i4998R3R4R5R12R6tgoR0y25:assets%2Fnumber-tiles.pngR2i2330R3R4R5R13R6tgoR0y18:assets%2Ftiles.pngR2i2916R3R4R5R14R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR16y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R15R5y28:flixel%2Fsounds%2Fflixel.mp3R17aR19y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R18R17aR16R18hgoR2i33629R3R21R5R20R17aR19R20hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R22R23y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R4R5R28R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R4R5R29R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy24:assets%2FBiggerTiles.pngy4:sizei1183y4:typey5:IMAGEy2:idR1y7:preloadtgoR0y24:assets%2FBiggerTiles.psdR2i53660R3y6:BINARYR5R7R6tgoR0y24:assets%2Fbullet-bill.pngR2i15445R3R4R5R9R6tgoR0y16:assets%2Fmap.pngR2i3715R3R4R5R10R6tgoR0y17:assets%2Fmap2.pngR2i2767R3R4R5R11R6tgoR0y17:assets%2Fmap3.pngR2i315R3R4R5R12R6tgoR0y32:assets%2Fnumber-tiles-bigger.pngR2i4998R3R4R5R13R6tgoR0y25:assets%2Fnumber-tiles.pngR2i2330R3R4R5R14R6tgoR0y18:assets%2Ftiles.pngR2i2916R3R4R5R15R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR17y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R16R5y28:flixel%2Fsounds%2Fflixel.mp3R18aR20y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R19R18aR17R19hgoR2i33629R3R22R5R21R18aR20R21hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R23R24y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R4R5R29R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R4R5R30R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -8344,7 +8344,7 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 		flixel_FlxG.mouse.set_visible(!Reg.mobile);
 		flixel_FlxG.camera.bgColor = -16777216;
 		this.level = new flixel_tile_FlxTilemap();
-		this.level.loadMapFromCSV(flixel_util_FlxStringUtil.imageToCSV("assets/map2.png",false,1),"assets/tiles.png",0,0,flixel_tile_FlxTilemapAutoTiling.ALT);
+		this.level.loadMapFromCSV(flixel_util_FlxStringUtil.imageToCSV("assets/map3.png",false,1),"assets/tiles.png",0,0,flixel_tile_FlxTilemapAutoTiling.ALT);
 		this.level.follow();
 		this.add(this.level);
 		this.bullets = new flixel_group_FlxTypedGroup(20);
@@ -8358,6 +8358,10 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 	}
 	,update: function(elapsed) {
 		flixel_FlxG.overlap(this.player,this.level,null,flixel_FlxObject.separate);
+		var _this = flixel_FlxG.worldBounds;
+		if(this.player.y > _this.y + _this.height + 500) {
+			this.reset();
+		}
 		flixel_FlxState.prototype.update.call(this,elapsed);
 	}
 	,setupMobileButtons: function() {
@@ -8387,11 +8391,17 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 		this.add(this.mobileUIAction2);
 		this.player.passMobileUISprites(this.mobileUILeft,this.mobileUIRight,this.mobileUIAction1,this.mobileUIAction2);
 	}
+	,reset: function() {
+		var nextState = Type.createInstance(js_Boot.getClass(flixel_FlxG.game._state),[]);
+		if(flixel_FlxG.game._state.switchTo(nextState)) {
+			flixel_FlxG.game._requestedState = nextState;
+		}
+	}
 	,__class__: PlayState
 });
 var Player = function(psBullets) {
 	flixel_FlxSprite.call(this,500,100);
-	this.makeGraphic(16,16,-65536);
+	this.makeGraphic(35,35,-65536);
 	this.maxVelocity.set(400,1000);
 	this.acceleration.set_y(Player.GRAVITY);
 	this.drag.set_x(Player.DRAG_X);
@@ -8527,9 +8537,6 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		this.velocity.set_y(-Player.JUMP_2_FORCE);
 	}
 	,doShoot: function() {
-		this.bullets.recycle(null,function() {
-			return new Bullet();
-		}).set(this.getMidpoint());
 	}
 	,passMobileUISprites: function(left,right,action1,action2) {
 		this.mobileUILeft = left;
@@ -80564,7 +80571,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 778614;
+	this.version = 351897;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -120343,8 +120350,8 @@ Player.JUMP_2_FORCE = 800;
 Player.WALL_JUMP_FORCE_X = 400;
 Player.WALL_JUMP_FORCE_Y = 300;
 Player.GRAVITY = 1200;
-Player.MOVE_SPEED = 1500;
-Player.DRAG_X = 2000;
+Player.MOVE_SPEED = 3000;
+Player.DRAG_X = 3000;
 flixel_system_FlxVersion.sha = "";
 openfl__$Vector_FloatVector.__meta__ = { obj : { SuppressWarnings : ["checkstyle:FieldDocComment"]}, fields : { toJSON : { SuppressWarnings : ["checkstyle:Dynamic"]}, _ : { SuppressWarnings : ["checkstyle:Dynamic"]}}};
 flixel_math_FlxPoint._pool = new flixel_util_FlxPool_$flixel_$math_$FlxPoint(flixel_math_FlxPoint);
