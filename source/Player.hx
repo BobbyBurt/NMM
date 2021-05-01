@@ -17,6 +17,7 @@ class Player extends FlxSprite
 	var right:FlxActionDigital;
 	var left:FlxActionDigital;
 	var jump:FlxActionDigital;
+	var jumpHold:FlxActionDigital;
 	var shoot:FlxActionDigital;
 	var jump2:FlxActionDigital;
 
@@ -25,30 +26,42 @@ class Player extends FlxSprite
 	var mobileUIAction1:FlxSprite;
 	var mobileUIAction2:FlxSprite;
 
+	// states
 	var grounded:Bool;
 	var wallSlideLeft:Bool = false;
 	var wallSlideRight:Bool = false;
+	var doingJump2:Bool = false;
 
 	var bullets:FlxTypedGroup<Bullet>;
 
+	static var MAX_VELOCITY_X:Int = 400;
+	static var MAX_VELOCITY_Y:Int = 2000;
+
 	static var JUMP_FORCE:Int = 900;
-	static var JUMP_2_FORCE:Int = 1000;
+	static var JUMP_2_FORCE:Int = 1200;
 	static var JUMP_WARP:Int = 15;
 	static var JUMP_2_WARP:Int = 20;
-	static var WALL_JUMP_FORCE_X:Int = 600;
-	static var WALL_JUMP_FORCE_Y:Int = 500;
+	// warp is my lingo for moving the player a certain distance
+	/** force applied downwards when jump isnt held **/
+	static var JUMP_PUSH_FORCE:Int = 50;
+
 	static var GRAVITY:Int = 2000;
+
+	static var WALL_JUMP_FORCE_X:Int = 900;
+	static var WALL_JUMP_FORCE_Y:Int = 700;
+	static var WALL_SLIDE_GRAVITY:Int = 200;
+	static var WALL_SLIDE_MAX_VELOCITY:Int = 200;
 
 	static var MOVE_SPEED:Int = 3000;
 	static var DRAG_X:Int = 3000;
-	static var DRAG_X_AIRBORNE:Int = 300;
+	static var DRAG_X_AIRBORNE:Int = 400;
 
 	public function new(psBullets:FlxTypedGroup<Bullet>)
 	{
 		super(500, 100);
 
 		makeGraphic(35, 35, FlxColor.RED);
-		maxVelocity.set(400, 1000); // max move speed, fall speed
+		maxVelocity.set(MAX_VELOCITY_X, MAX_VELOCITY_Y); // max move speed, fall speed
 		// PROB fall speed doesnt seem to be effected. is it controlled by something else?
 		acceleration.y = GRAVITY;
 		drag.x = DRAG_X;
@@ -59,18 +72,20 @@ class Player extends FlxSprite
 		right = new FlxActionDigital().addKey(RIGHT, PRESSED).addGamepad(DPAD_RIGHT, PRESSED);
 		left = new FlxActionDigital().addKey(LEFT, PRESSED).addGamepad(DPAD_LEFT, PRESSED);
 		jump = new FlxActionDigital().addKey(F, JUST_PRESSED).addGamepad(B, JUST_PRESSED);
+		jumpHold = new FlxActionDigital().addKey(F, PRESSED).addGamepad(B, PRESSED);
 		shoot = new FlxActionDigital().addKey(S, JUST_PRESSED).addGamepad(RIGHT_TRIGGER, JUST_PRESSED);
 		jump2 = new FlxActionDigital().addKey(D, JUST_PRESSED).addGamepad(A, JUST_PRESSED);
 
 		if (actions == null)
 			actions = FlxG.inputs.add(new FlxActionManager());
-		actions.addActions([right, left, jump, shoot, jump2]);
+		actions.addActions([right, left, jump, jumpHold, shoot, jump2]);
 
 		FlxG.watch.add(this, "grounded");
 		FlxG.watch.add(this, "wallSlideLeft");
 		FlxG.watch.add(this, "wallSlideRight");
 		FlxG.watch.add(acceleration, "x");
 		FlxG.watch.add(drag, "x");
+		FlxG.watch.add(this, "doingJump2");
 	}
 
 	override public function update(elapsed:Float):Void
@@ -87,19 +102,23 @@ class Player extends FlxSprite
 		}
 		// FIXME this doesnt need to update each frame, should happen once at grounded change
 
-		updateInput();
+		grounded = (isTouching(FlxObject.DOWN) && velocity.y == 0);
+		if (grounded)
+		{
+			doingJump2 = false;
+		}
 
-		grounded = isTouching(FlxObject.DOWN);
+		updateInput();
 
 		if ((wallSlideLeft || wallSlideRight) && velocity.y > 0)
 		{
-			acceleration.y = 100;
-			maxVelocity.y = 150;
+			acceleration.y = WALL_SLIDE_GRAVITY;
+			maxVelocity.y = WALL_SLIDE_MAX_VELOCITY;
 		}
 		else
 		{
 			acceleration.y = GRAVITY;
-			maxVelocity.y = 1000;
+			maxVelocity.y = MAX_VELOCITY_Y;
 		}
 
 		super.update(elapsed);
@@ -141,6 +160,12 @@ class Player extends FlxSprite
 		if (jump2.triggered || action2M)
 			doJump2();
 
+		// jump push
+		if (!jumpHold.triggered && !action1M && velocity.y < 0 && !doingJump2)
+		{
+			velocity.y += JUMP_PUSH_FORCE;
+		}
+
 		wallslideCheck((left.triggered || leftM), (right.triggered || rightM));
 	}
 
@@ -176,7 +201,9 @@ class Player extends FlxSprite
 	function doJump2():Void
 	{
 		y -= JUMP_2_WARP;
+		// TODO check if there's collision some distance adove, if so don't apply warp
 		velocity.y = -JUMP_2_FORCE;
+		doingJump2 = true;
 	}
 
 	function doShoot()

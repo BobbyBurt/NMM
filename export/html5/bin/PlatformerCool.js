@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "13";
+	app.meta.h["build"] = "14";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "PlatformerCool";
 	app.meta.h["name"] = "PlatformerCool";
@@ -8400,23 +8400,25 @@ PlayState.prototype = $extend(flixel_FlxState.prototype,{
 	,__class__: PlayState
 });
 var Player = function(psBullets) {
+	this.doingJump2 = false;
 	this.wallSlideRight = false;
 	this.wallSlideLeft = false;
 	flixel_FlxSprite.call(this,500,100);
 	this.makeGraphic(35,35,-65536);
-	this.maxVelocity.set(400,100);
+	this.maxVelocity.set(Player.MAX_VELOCITY_X,Player.MAX_VELOCITY_Y);
 	this.acceleration.set_y(Player.GRAVITY);
 	this.drag.set_x(Player.DRAG_X);
 	this.bullets = psBullets;
 	this.right = new flixel_input_actions_FlxActionDigital().addKey(39,1).addGamepad(14,1);
 	this.left = new flixel_input_actions_FlxActionDigital().addKey(37,1).addGamepad(13,1);
 	this.jump = new flixel_input_actions_FlxActionDigital().addKey(70,2).addGamepad(1,2);
+	this.jumpHold = new flixel_input_actions_FlxActionDigital().addKey(70,1).addGamepad(1,1);
 	this.shoot = new flixel_input_actions_FlxActionDigital().addKey(83,2).addGamepad(18,2);
 	this.jump2 = new flixel_input_actions_FlxActionDigital().addKey(68,2).addGamepad(0,2);
 	if(Player.actions == null) {
 		Player.actions = flixel_FlxG.inputs.add_flixel_input_actions_FlxActionManager(new flixel_input_actions_FlxActionManager());
 	}
-	Player.actions.addActions([this.right,this.left,this.jump,this.shoot,this.jump2]);
+	Player.actions.addActions([this.right,this.left,this.jump,this.jumpHold,this.shoot,this.jump2]);
 	var _this = flixel_FlxG.watch;
 	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this,"grounded"));
 	var _this = flixel_FlxG.watch;
@@ -8427,6 +8429,8 @@ var Player = function(psBullets) {
 	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this.acceleration,"x"));
 	var _this = flixel_FlxG.watch;
 	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this.drag,"x"));
+	var _this = flixel_FlxG.watch;
+	flixel_FlxG.game.debugger.watch.add(null,flixel_system_debug_watch_WatchEntryData.FIELD(this,"doingJump2"));
 };
 $hxClasses["Player"] = Player;
 Player.__name__ = "Player";
@@ -8436,6 +8440,7 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 	right: null
 	,left: null
 	,jump: null
+	,jumpHold: null
 	,shoot: null
 	,jump2: null
 	,mobileUILeft: null
@@ -8445,6 +8450,7 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 	,grounded: null
 	,wallSlideLeft: null
 	,wallSlideRight: null
+	,doingJump2: null
 	,bullets: null
 	,update: function(elapsed) {
 		this.acceleration.set_x(0);
@@ -8453,14 +8459,17 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		} else {
 			this.drag.set_x(Player.DRAG_X_AIRBORNE);
 		}
+		this.grounded = (this.touching & 4096) > 0 && this.velocity.y == 0;
+		if(this.grounded) {
+			this.doingJump2 = false;
+		}
 		this.updateInput();
-		this.grounded = (this.touching & 4096) > 0;
 		if((this.wallSlideLeft || this.wallSlideRight) && this.velocity.y > 0) {
-			this.acceleration.set_y(100);
-			this.maxVelocity.set_y(150);
+			this.acceleration.set_y(Player.WALL_SLIDE_GRAVITY);
+			this.maxVelocity.set_y(Player.WALL_SLIDE_MAX_VELOCITY);
 		} else {
 			this.acceleration.set_y(Player.GRAVITY);
-			this.maxVelocity.set_y(1000);
+			this.maxVelocity.set_y(Player.MAX_VELOCITY_Y);
 		}
 		flixel_FlxSprite.prototype.update.call(this,elapsed);
 	}
@@ -8507,6 +8516,10 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		if(this.jump2.triggered || action2M) {
 			this.doJump2();
 		}
+		if(!this.jumpHold.triggered && !action1M && this.velocity.y < 0 && !this.doingJump2) {
+			var _g = this.velocity;
+			_g.set_y(_g.y + Player.JUMP_PUSH_FORCE);
+		}
 		this.wallslideCheck(this.left.triggered || leftM,this.right.triggered || rightM);
 	}
 	,moveLeft: function() {
@@ -8532,6 +8545,7 @@ Player.prototype = $extend(flixel_FlxSprite.prototype,{
 		var _g = this;
 		_g.set_y(_g.y - Player.JUMP_2_WARP);
 		this.velocity.set_y(-Player.JUMP_2_FORCE);
+		this.doingJump2 = true;
 	}
 	,doShoot: function() {
 	}
@@ -120485,16 +120499,21 @@ flixel_FlxObject._secondSeparateFlxRect = (function($this) {
 }(this));
 openfl_text_Font.__fontByName = new haxe_ds_StringMap();
 openfl_text_Font.__registeredFonts = [];
+Player.MAX_VELOCITY_X = 400;
+Player.MAX_VELOCITY_Y = 2000;
 Player.JUMP_FORCE = 900;
-Player.JUMP_2_FORCE = 1000;
+Player.JUMP_2_FORCE = 1200;
 Player.JUMP_WARP = 15;
 Player.JUMP_2_WARP = 20;
-Player.WALL_JUMP_FORCE_X = 600;
-Player.WALL_JUMP_FORCE_Y = 500;
+Player.JUMP_PUSH_FORCE = 50;
 Player.GRAVITY = 2000;
+Player.WALL_JUMP_FORCE_X = 900;
+Player.WALL_JUMP_FORCE_Y = 700;
+Player.WALL_SLIDE_GRAVITY = 200;
+Player.WALL_SLIDE_MAX_VELOCITY = 200;
 Player.MOVE_SPEED = 3000;
 Player.DRAG_X = 3000;
-Player.DRAG_X_AIRBORNE = 300;
+Player.DRAG_X_AIRBORNE = 400;
 flixel_system_FlxVersion.sha = "";
 openfl__$Vector_FloatVector.__meta__ = { obj : { SuppressWarnings : ["checkstyle:FieldDocComment"]}, fields : { toJSON : { SuppressWarnings : ["checkstyle:Dynamic"]}, _ : { SuppressWarnings : ["checkstyle:Dynamic"]}}};
 flixel_math_FlxPoint._pool = new flixel_util_FlxPool_$flixel_$math_$FlxPoint(flixel_math_FlxPoint);
